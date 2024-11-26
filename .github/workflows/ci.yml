@@ -20,7 +20,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'temurin' # Choose your preferred distribution
+        distribution: 'temurin'
 
     - name: Cache Maven Dependencies
       uses: actions/cache@v3
@@ -30,8 +30,13 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-maven
 
+    - name: Navigate to Project Directory
+      run: cd WorkLog # Update this path if your project folder is named differently
+
     - name: Build with Maven
       run: mvn clean install
+      working-directory: WorkLog # Specify the correct directory where `pom.xml` is located
 
     - name: Run Tests
       run: mvn test
+      working-directory: WorkLog
